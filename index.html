@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator & Converter App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        select option {
+            background-color: #1e293b;
+            color: white;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+        <div class="bg-black/40 backdrop-blur-xl p-6 rounded-3xl shadow-2xl border border-white/10 w-full max-w-md">
+            
+            <!-- Mode Tabs -->
+            <div class="flex gap-2 mb-6">
+                <button id="calcTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white">
+                    Calculator
+                </button>
+                <button id="convTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
+                    Converter
+                </button>
+            </div>
+
+            <!-- Calculator Mode -->
+            <div id="calculatorMode">
+                <div class="mb-6 p-6 bg-black/30 rounded-2xl border border-white/5">
+                    <div class="text-right">
+                        <div id="operation" class="text-purple-400 text-sm mb-1 h-5"></div>
+                        <div id="display" class="text-white text-5xl font-light tracking-tight overflow-hidden text-ellipsis">0</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3">
+                    <button onclick="clearCalc()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-red-500/80 hover:bg-red-500 text-white">C</button>
+                    <button onclick="backspace()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">⌫</button>
+                    <button onclick="percent()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">%</button>
+                    <button onclick="setOperation('÷')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">÷</button>
+
+                    <button onclick="appendNumber(7)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">7</button>
+                    <button onclick="appendNumber(8)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">8</button>
+                    <button onclick="appendNumber(9)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">9</button>
+                    <button onclick="setOperation('×')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">×</button>
+
+                    <button onclick="appendNumber(4)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">4</button>
+                    <button onclick="appendNumber(5)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">5</button>
+                    <button onclick="appendNumber(6)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">6</button>
+                    <button onclick="setOperation('-')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">-</button>
+
+                    <button onclick="appendNumber(1)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">1</button>
+                    <button onclick="appendNumber(2)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">2</button>
+                    <button onclick="appendNumber(3)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">3</button>
+                    <button onclick="setOperation('+')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">+</button>
+
+                    <button onclick="toggleSign()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">+/-</button>
+                    <button onclick="appendNumber(0)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">0</button>
+                    <button onclick="appendDecimal()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">.</button>
+                    <button onclick="calculate()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold">=</button>
+                </div>
+            </div>
+
+            <!-- Converter Mode -->
+            <div id="converterMode" style="display: none;">
+                <!-- Converter Type Selection -->
+                <div class="mb-4 flex gap-2 overflow-x-auto pb-2" id="converterTypes"></div>
+
+                <!-- Converter Interface -->
+                <div class="space-y-4">
+                    <!-- From Unit -->
+                    <div class="bg-black/30 rounded-2xl border border-white/5 p-4">
+                        <select id="fromUnit" onchange="updateConversion()" class="w-full bg-transparent text-purple-400 text-sm mb-3 outline-none"></select>
+                        <input type="number" id="inputValue" oninput="updateConversion()" value="1" class="w-full bg-transparent text-white text-3xl outline-none" placeholder="0">
+                    </div>
+
+                    <!-- Swap Button -->
+                    <div class="flex justify-center">
+                        <button onclick="swapUnits()" class="bg-purple-600/80 hover:bg-purple-600 text-white p-3 rounded-full transition-all active:scale-95">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- To Unit -->
+                    <div class="bg-black/30 rounded-2xl border border-white/5 p-4">
+                        <select id="toUnit" onchange="updateConversion()" class="w-full bg-transparent text-purple-400 text-sm mb-3 outline-none"></select>
+                        <div id="outputValue" class="text-white text-3xl">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calculator State
+        let display = '0';
+        let previous = null;
+        let operation = null;
+        let newNumber = true;
+
+        // Converter State
+        let currentConverterType = 'area';
+
+        // Conversion Units Data
+        const conversionUnits = {
+            area: {
+                name: 'Area',
+                units: {
+                    'Square Kilometer': 1000000,
+                    'Square Meter': 1,
+                    'Square Mile': 2589988.110336,
+                    'Square Yard': 0.83612736,
+                    'Square Foot': 0.09290304,
+                    'Square Inch': 0.00064516,
+                    'Hectare': 10000,
+                    'Acre': 4046.8564224
+                }
+            },
+            temperature: {
+                name: 'Temperature',
+                units: ['Celsius', 'Fahrenheit', 'Kelvin']
+            },
+            length: {
+                name: 'Length',
+                units: {
+                    'Kilometer': 1000,
+                    'Meter': 1,
+                    'Centimeter': 0.01,
+                    'Millimeter': 0.001,
+                    'Mile': 1609.344,
+                    'Yard': 0.9144,
+                    'Foot': 0.3048,
+                    'Inch': 0.0254
+                }
+            },
+            weight: {
+                name: 'Weight',
+                units: {
+                    'Ton': 1000000,
+                    'Kilogram': 1000,
+                    'Gram': 1,
+                    'Milligram': 0.001,
+                    'Pound': 453.59237,
+                    'Ounce': 28.349523125
+                }
+            },
+            volume: {
+                name: 'Volume',
+                units: {
+                    'Cubic Meter': 1000,
+                    'Liter': 1,
+                    'Milliliter': 0.001,
+                    'Gallon (US)': 3.785411784,
+                    'Quart (US)': 0.946352946,
+                    'Pint (US)': 0.473176473,
+                    'Cup': 0.24,
+                    'Fluid Ounce': 0.0295735296
+                }
+            },
+            data: {
+                name: 'Data',
+                units: {
+                    'Bit': 1,
+                    'Byte': 8,
+                    'Kilobyte': 8000,
+                    'Megabyte': 8000000,
+                    'Gigabyte': 8000000000,
+                    'Terabyte': 8000000000000,
+                    'Petabyte': 8000000000000000
+                }
+            },
+            speed: {
+                name: 'Speed',
+                units: {
+                    'Meter/Second': 1,
+                    'Kilometer/Hour': 0.277778,
+                    'Mile/Hour': 0.44704,
+                    'Foot/Second': 0.3048,
+                    'Knot': 0.514444
+                }
+            },
+            time: {
+                name: 'Time',
+                units: {
+                    'Year': 31536000,
+                    'Month': 2628000,
+                    'Week': 604800,
+                    'Day': 86400,
+                    'Hour': 3600,
+                    'Minute': 60,
+                    'Second': 1,
+                    'Millisecond': 0.001
+                }
+            }
+        };
+
+        // Calculator Functions
+        function updateDisplay() {
+            document.getElementById('display').textContent = display;
+            if (operation && previous !== null) {
+                document.getElementById('operation').textContent = previous + ' ' + operation;
+            } else {
+                document.getElementById('operation').textContent = '';
+            }
+        }
+
+        function appendNumber(num) {
+            if (newNumber) {
+                display = String(num);
+                newNumber = false;
+            } else {
+                display = display === '0' ? String(num) : display + num;
+            }
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            if (newNumber) {
+                display = '0.';
+                newNumber = false;
+            } else if (!display.includes('.')) {
+                display += '.';
+            }
+            updateDisplay();
+        }
+
+        function setOperation(op) {
+            const current = parseFloat(display);
+            
+            if (previous === null) {
+                previous = current;
+            } else if (operation) {
+                const result = performCalculation(previous, current, operation);
+                display = String(result);
+                previous = result;
+            }
+            
+            operation = op;
+            newNumber = true;
+            updateDisplay();
+        }
+
+        function performCalculation(a, b, op) {
+            switch (op) {
+                case '+': return a + b;
+                case '-': return a - b;
+                case '×': return a * b;
+                case '÷': return a / b;
+                default: return b;
+            }
+        }
+
+        function calculate() {
+            if (operation && previous !== null) {
+                const current = parseFloat(display);
+                const result = performCalculation(previous, current, operation);
+                display = String(result);
+                previous = null;
+                operation = null;
+                newNumber = true;
+                updateDisplay();
+            }
+        }
+
+        function clearCalc() {
+            display = '0';
+            previous = null;
+            operation = null;
+            newNumber = true;
+            updateDisplay();
+        }
+
+        function backspace() {
+            if (display.length > 1) {
+                display = display.slice(0, -1);
+            } else {
+                display = '0';
+                newNumber = true;
+            }
+            updateDisplay();
+        }
+
+        function percent() {
+            display = String(parseFloat(display) / 100);
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            display = String(parseFloat(display) * -1);
+            updateDisplay();
+        }
+
+        // Mode Switching
+        document.getElementById('calcTab').onclick = function() {
+            document.getElementById('calculatorMode').style.display = 'block';
+            document.getElementById('converterMode').style.display = 'none';
+            this.className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        };
+
+        document.getElementById('convTab').onclick = function() {
+            document.getElementById('calculatorMode').style.display = 'none';
+            document.getElementById('converterMode').style.display = 'block';
+            this.className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        };
+
+        // Converter Functions
+        function convertTemperature(value, from, to) {
+            let celsius;
+            
+            if (from === 'Celsius') celsius = value;
+            else if (from === 'Fahrenheit') celsius = (value - 32) * 5/9;
+            else if (from === 'Kelvin') celsius = value - 273.15;
+            
+            if (to === 'Celsius') return celsius;
+            else if (to === 'Fahrenheit') return celsius * 9/5 + 32;
+            else if (to === 'Kelvin') return celsius + 273.15;
+        }
+
+        function convertUnits(value, from, to, type) {
+            if (type === 'temperature') {
+                return convertTemperature(value, from, to);
+            }
+            
+            const units = conversionUnits[type].units;
+            const baseValue = value * units[from];
+            return baseValue / units[to];
+        }
+
+        function updateConversion() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            
+            if (!inputValue || !fromUnit || !toUnit || isNaN(inputValue)) {
+                document.getElementById('outputValue').textContent = '0';
+                return;
+            }
+            
+            const result = convertUnits(inputValue, fromUnit, toUnit, currentConverterType);
+            document.getElementById('outputValue').textContent = result.toFixed(6).replace(/\.?0+$/, '');
+        }
+
+        function swapUnits() {
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+            updateConversion();
+        }
+
+        function initConverterType(type) {
+            currentConverterType = type;
+            const units = conversionUnits[type];
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+            
+            if (type === 'temperature') {
+                units.units.forEach(unit => {
+                    fromSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                    toSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                });
+                fromSelect.value = 'Celsius';
+                toSelect.value = 'Fahrenheit';
+            } else {
+                const unitNames = Object.keys(units.units);
+                unitNames.forEach(unit => {
+                    fromSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                    toSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                });
+                fromSelect.value = unitNames[0];
+                toSelect.value = unitNames[1];
+            }
+            
+            document.getElementById('inputValue').value = '1';
+            updateConversion();
+        }
+
+        // Initialize Converter Types
+        const typesContainer = document.getElementById('converterTypes');
+        Object.keys(conversionUnits).forEach(type => {
+            const button = document.createElement('button');
+            button.textContent = conversionUnits[type].name;
+            button.className = type === 'area' 
+                ? 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-purple-600 text-white'
+                : 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            button.onclick = function() {
+                document.querySelectorAll('#converterTypes button').forEach(btn => {
+                    btn.className = 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+                });
+                this.className = 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-purple-600 text-white';
+                initConverterType(type);
+            };
+            typesContainer.appendChild(button);
+        });
+
+        // Initialize
+        initConverterType('area');
+    </script>
+</body>
+  </html>
