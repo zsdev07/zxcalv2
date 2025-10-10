@@ -47,6 +47,11 @@
                 <button id="convTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
                     Converter
                 </button>
+                <button id="historyTab" class="py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
             </div>
 
             <!-- Calculator Mode -->
@@ -115,6 +120,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- History Mode -->
+            <div id="historyMode" style="display: none;">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-white text-lg font-medium">History</h3>
+                    <button onclick="clearHistory()" class="text-red-400 hover:text-red-300 text-sm font-medium transition-all">
+                        Clear All
+                    </button>
+                </div>
+                
+                <div id="historyList" class="space-y-2 max-h-96 overflow-y-auto">
+                    <!-- History items will be added here -->
+                </div>
+                
+                <div id="emptyHistory" class="text-center py-12">
+                    <svg class="w-16 h-16 mx-auto text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-slate-400 text-sm">No history yet</p>
+                    <p class="text-slate-500 text-xs mt-1">Your calculations will appear here</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -153,6 +180,7 @@
         let previous = null;
         let operation = null;
         let newNumber = true;
+        let history = [];
 
         // Converter State
         let currentConverterType = 'area';
@@ -314,6 +342,10 @@
             if (operation && previous !== null) {
                 const current = parseFloat(display);
                 const result = performCalculation(previous, current, operation);
+                
+                // Add to history
+                addToHistory(previous, operation, current, result);
+                
                 display = String(result);
                 previous = null;
                 operation = null;
@@ -354,22 +386,114 @@
             updateDisplay();
         }
 
-        // Mode Switching
-        document.getElementById('calcTab').onclick = function() {
+        // History Functions
+        function addToHistory(num1, op, num2, result) {
+            const equation = `${num1} ${op} ${num2}`;
+            const timestamp = new Date().toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            
+            history.unshift({
+                equation: equation,
+                result: result,
+                timestamp: timestamp
+            });
+            
+            // Keep only last 50 calculations
+            if (history.length > 50) {
+                history = history.slice(0, 50);
+            }
+            
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            const emptyHistory = document.getElementById('emptyHistory');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '';
+                emptyHistory.style.display = 'block';
+                return;
+            }
+            
+            emptyHistory.style.display = 'none';
+            
+            historyList.innerHTML = history.map((item, index) => `
+                <div class="bg-black/30 rounded-xl border border-white/5 p-4 cursor-pointer hover:bg-black/40 transition-all" onclick="useHistoryResult(${index})">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-purple-400 text-xs">${item.timestamp}</span>
+                        <button onclick="event.stopPropagation(); deleteHistoryItem(${index})" class="text-slate-500 hover:text-red-400 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-slate-300 text-sm mb-1">${item.equation}</div>
+                    <div class="text-white text-xl font-medium">= ${item.result}</div>
+                </div>
+            `).join('');
+        }
+
+        function useHistoryResult(index) {
             playClickSound();
+            display = String(history[index].result);
+            newNumber = true;
+            updateDisplay();
+            showCalculator();
+        }
+
+        function deleteHistoryItem(index) {
+            playClickSound();
+            history.splice(index, 1);
+            updateHistoryDisplay();
+        }
+
+        function clearHistory() {
+            playClickSound();
+            if (history.length === 0) return;
+            
+            if (confirm('Clear all history?')) {
+                history = [];
+                updateHistoryDisplay();
+            }
+        }
+
+        function showCalculator() {
             document.getElementById('calculatorMode').style.display = 'block';
             document.getElementById('converterMode').style.display = 'none';
-            this.className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('historyMode').style.display = 'none';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
             document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
-        };
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        }
 
-        document.getElementById('convTab').onclick = function() {
-            playClickSound();
+        function showConverter() {
             document.getElementById('calculatorMode').style.display = 'none';
             document.getElementById('converterMode').style.display = 'block';
-            this.className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('historyMode').style.display = 'none';
             document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
-        };
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        }
+
+        function showHistory() {
+            playClickSound();
+            document.getElementById('calculatorMode').style.display = 'none';
+            document.getElementById('converterMode').style.display = 'none';
+            document.getElementById('historyMode').style.display = 'block';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            updateHistoryDisplay();
+        }
+
+        // Mode Switching
+        document.getElementById('calcTab').onclick = showCalculator;
+        document.getElementById('convTab').onclick = showConverter;
+        document.getElementById('historyTab').onclick = showHistory;
 
         // Converter Functions
         function convertTemperature(value, from, to) {
@@ -471,4 +595,4 @@
         initConverterType('area');
     </script>
 </body>
-</html>
+    </html>
