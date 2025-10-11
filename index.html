@@ -1,4 +1,4 @@
-.w-5{width:1.25rem}.h-16{height:4rem}.h-14{height:3.5rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-px{height:1px}.w-6{width:1.5rem}.w-full{width:100%}.w-16{width:4rem}.w-4{height:1rem}.max-w-md{max-width:28rem}.max-h-96{max-height:24rem}.flex-1{flex:1 1 0%}.mb-1{margin-bottom:0.25rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mx-3{margin-left:0.75rem;margin-right:0.75rem}.mx-auto{margin-left:auto;margin-right:auto}.mt-1{margin-top:0.25rem}.overflow-y-auto{overflow-y:auto}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-slate-300{color:#cbd5e1}.text-slate-500{color:#64748b}.text-slate-600{color:#475569}.text-red-400{color:#f87171}.hover\:text-red-300:hover{color:#fca5a5}.hover\:text-red-400:hover{color:#f87171}.hover\:bg-black\/40:hover{background-color:rgb(0 0 0 / 0.4)<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,13 +49,10 @@
             
             <!-- Mode Tabs -->
             <div class="flex gap-2 mb-6">
-                <button id="calcTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white text-sm">
+                <button id="calcTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white">
                     Calculator
                 </button>
-                <button id="scientificTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm">
-                    Scientific
-                </button>
-                <button id="convTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm">
+                <button id="convTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
                     Converter
                 </button>
                 <button id="historyTab" class="py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
@@ -99,67 +96,6 @@
                     <button onclick="appendNumber(0)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">0</button>
                     <button onclick="appendDecimal()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">.</button>
                     <button onclick="calculate()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold">=</button>
-                </div>
-            </div>
-
-            <!-- Scientific Mode -->
-            <div id="scientificMode" style="display: none;">
-                <div class="mb-6 p-6 bg-black/30 rounded-2xl border border-white/5">
-                    <div class="text-right">
-                        <div id="scientificOperation" class="text-purple-400 text-sm mb-1 h-5"></div>
-                        <div id="scientificDisplay" class="text-white text-4xl font-light tracking-tight overflow-hidden text-ellipsis">0</div>
-                    </div>
-                </div>
-
-                <!-- Scientific Functions -->
-                <div class="grid grid-cols-4 gap-2 mb-3">
-                    <button onclick="scientificFunction('sqrt')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">√</button>
-                    <button onclick="scientificFunction('square')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">x²</button>
-                    <button onclick="scientificFunction('cube')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">x³</button>
-                    <button onclick="scientificFunction('cbrt')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">∛</button>
-                    
-                    <button onclick="scientificFunction('sin')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">sin</button>
-                    <button onclick="scientificFunction('cos')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">cos</button>
-                    <button onclick="scientificFunction('tan')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">tan</button>
-                    <button onclick="scientificFunction('log')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">log</button>
-                    
-                    <button onclick="scientificFunction('ln')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">ln</button>
-                    <button onclick="scientificFunction('exp')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">eˣ</button>
-                    <button onclick="scientificFunction('pow')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">xʸ</button>
-                    <button onclick="scientificFunction('factorial')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">x!</button>
-                    
-                    <button onclick="scientificFunction('pi')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">π</button>
-                    <button onclick="scientificFunction('e')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">e</button>
-                    <button onclick="scientificFunction('abs')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">|x|</button>
-                    <button onclick="scientificFunction('reciprocal')" class="h-14 text-lg font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">1/x</button>
-                </div>
-
-                <!-- Basic Calculator Grid for Scientific -->
-                <div class="grid grid-cols-4 gap-3">
-                    <button onclick="clearScientific()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-red-500/80 hover:bg-red-500 text-white">C</button>
-                    <button onclick="backspaceScientific()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">⌫</button>
-                    <button onclick="percentScientific()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">%</button>
-                    <button onclick="setScientificOperation('÷')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">÷</button>
-
-                    <button onclick="appendScientificNumber(7)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">7</button>
-                    <button onclick="appendScientificNumber(8)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">8</button>
-                    <button onclick="appendScientificNumber(9)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">9</button>
-                    <button onclick="setScientificOperation('×')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">×</button>
-
-                    <button onclick="appendScientificNumber(4)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">4</button>
-                    <button onclick="appendScientificNumber(5)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">5</button>
-                    <button onclick="appendScientificNumber(6)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">6</button>
-                    <button onclick="setScientificOperation('-')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">-</button>
-
-                    <button onclick="appendScientificNumber(1)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">1</button>
-                    <button onclick="appendScientificNumber(2)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">2</button>
-                    <button onclick="appendScientificNumber(3)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">3</button>
-                    <button onclick="setScientificOperation('+')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">+</button>
-
-                    <button onclick="toggleScientificSign()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">+/-</button>
-                    <button onclick="appendScientificNumber(0)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">0</button>
-                    <button onclick="appendScientificDecimal()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">.</button>
-                    <button onclick="calculateScientific()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold">=</button>
                 </div>
             </div>
 
@@ -253,13 +189,6 @@
         let operation = null;
         let newNumber = true;
         let history = [];
-
-        // Scientific Calculator State
-        let scientificDisplay = '0';
-        let scientificPrevious = null;
-        let scientificOperation = null;
-        let scientificNewNumber = true;
-        let waitingForSecondOperand = false;
 
         // Converter State
         let currentConverterType = 'area';
@@ -534,247 +463,43 @@
             playClickSound();
             if (history.length === 0) return;
             
-            history = [];
-            updateHistoryDisplay();
+            if (confirm('Clear all history?')) {
+                history = [];
+                updateHistoryDisplay();
+            }
         }
 
         function showCalculator() {
             document.getElementById('calculatorMode').style.display = 'block';
-            document.getElementById('scientificMode').style.display = 'none';
             document.getElementById('converterMode').style.display = 'none';
             document.getElementById('historyMode').style.display = 'none';
-            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white text-sm';
-            document.getElementById('scientificTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
-        }
-
-        function showScientific() {
-            playClickSound();
-            document.getElementById('calculatorMode').style.display = 'none';
-            document.getElementById('scientificMode').style.display = 'block';
-            document.getElementById('converterMode').style.display = 'none';
-            document.getElementById('historyMode').style.display = 'none';
-            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('scientificTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white text-sm';
-            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
             document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
         }
 
         function showConverter() {
             document.getElementById('calculatorMode').style.display = 'none';
-            document.getElementById('scientificMode').style.display = 'none';
             document.getElementById('converterMode').style.display = 'block';
             document.getElementById('historyMode').style.display = 'none';
-            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('scientificTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white text-sm';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
             document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
         }
 
         function showHistory() {
             playClickSound();
             document.getElementById('calculatorMode').style.display = 'none';
-            document.getElementById('scientificMode').style.display = 'none';
             document.getElementById('converterMode').style.display = 'none';
             document.getElementById('historyMode').style.display = 'block';
-            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('scientificTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
-            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800 text-sm';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
             document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
             updateHistoryDisplay();
         }
 
-        // Scientific Calculator Functions
-        function updateScientificDisplay() {
-            document.getElementById('scientificDisplay').textContent = scientificDisplay;
-            if (scientificOperation && scientificPrevious !== null) {
-                document.getElementById('scientificOperation').textContent = scientificPrevious + ' ' + scientificOperation;
-            } else {
-                document.getElementById('scientificOperation').textContent = '';
-            }
-        }
-
-        function appendScientificNumber(num) {
-            playClickSound();
-            if (scientificNewNumber) {
-                scientificDisplay = String(num);
-                scientificNewNumber = false;
-            } else {
-                scientificDisplay = scientificDisplay === '0' ? String(num) : scientificDisplay + num;
-            }
-            updateScientificDisplay();
-        }
-
-        function appendScientificDecimal() {
-            playClickSound();
-            if (scientificNewNumber) {
-                scientificDisplay = '0.';
-                scientificNewNumber = false;
-            } else if (!scientificDisplay.includes('.')) {
-                scientificDisplay += '.';
-            }
-            updateScientificDisplay();
-        }
-
-        function setScientificOperation(op) {
-            playClickSound();
-            const current = parseFloat(scientificDisplay);
-            
-            if (scientificPrevious === null) {
-                scientificPrevious = current;
-            } else if (scientificOperation) {
-                const result = performCalculation(scientificPrevious, current, scientificOperation);
-                scientificDisplay = String(result);
-                scientificPrevious = result;
-            }
-            
-            scientificOperation = op;
-            scientificNewNumber = true;
-            updateScientificDisplay();
-        }
-
-        function calculateScientific() {
-            playClickSound();
-            if (scientificOperation && scientificPrevious !== null) {
-                const current = parseFloat(scientificDisplay);
-                const result = performCalculation(scientificPrevious, current, scientificOperation);
-                
-                // Add to history
-                addToHistory(scientificPrevious, scientificOperation, current, result);
-                
-                scientificDisplay = String(result);
-                scientificPrevious = null;
-                scientificOperation = null;
-                scientificNewNumber = true;
-                updateScientificDisplay();
-            }
-        }
-
-        function clearScientific() {
-            playClickSound();
-            scientificDisplay = '0';
-            scientificPrevious = null;
-            scientificOperation = null;
-            scientificNewNumber = true;
-            updateScientificDisplay();
-        }
-
-        function backspaceScientific() {
-            playClickSound();
-            if (scientificDisplay.length > 1) {
-                scientificDisplay = scientificDisplay.slice(0, -1);
-            } else {
-                scientificDisplay = '0';
-                scientificNewNumber = true;
-            }
-            updateScientificDisplay();
-        }
-
-        function percentScientific() {
-            playClickSound();
-            scientificDisplay = String(parseFloat(scientificDisplay) / 100);
-            updateScientificDisplay();
-        }
-
-        function toggleScientificSign() {
-            playClickSound();
-            scientificDisplay = String(parseFloat(scientificDisplay) * -1);
-            updateScientificDisplay();
-        }
-
-        function scientificFunction(func) {
-            playClickSound();
-            const value = parseFloat(scientificDisplay);
-            let result;
-            
-            switch(func) {
-                case 'sqrt':
-                    result = Math.sqrt(value);
-                    addToHistory(value, '√', '', result);
-                    break;
-                case 'square':
-                    result = Math.pow(value, 2);
-                    addToHistory(value, '²', '', result);
-                    break;
-                case 'cube':
-                    result = Math.pow(value, 3);
-                    addToHistory(value, '³', '', result);
-                    break;
-                case 'cbrt':
-                    result = Math.cbrt(value);
-                    addToHistory(value, '∛', '', result);
-                    break;
-                case 'sin':
-                    result = Math.sin(value * Math.PI / 180);
-                    addToHistory('sin(' + value + '°)', '', '', result);
-                    break;
-                case 'cos':
-                    result = Math.cos(value * Math.PI / 180);
-                    addToHistory('cos(' + value + '°)', '', '', result);
-                    break;
-                case 'tan':
-                    result = Math.tan(value * Math.PI / 180);
-                    addToHistory('tan(' + value + '°)', '', '', result);
-                    break;
-                case 'log':
-                    result = Math.log10(value);
-                    addToHistory('log(' + value + ')', '', '', result);
-                    break;
-                case 'ln':
-                    result = Math.log(value);
-                    addToHistory('ln(' + value + ')', '', '', result);
-                    break;
-                case 'exp':
-                    result = Math.exp(value);
-                    addToHistory('e^' + value, '', '', result);
-                    break;
-                case 'pow':
-                    scientificPrevious = value;
-                    scientificOperation = '^';
-                    scientificNewNumber = true;
-                    updateScientificDisplay();
-                    return;
-                case 'factorial':
-                    result = factorial(Math.floor(value));
-                    addToHistory(value + '!', '', '', result);
-                    break;
-                case 'pi':
-                    result = Math.PI;
-                    break;
-                case 'e':
-                    result = Math.E;
-                    break;
-                case 'abs':
-                    result = Math.abs(value);
-                    addToHistory('|' + value + '|', '', '', result);
-                    break;
-                case 'reciprocal':
-                    result = 1 / value;
-                    addToHistory('1/' + value, '', '', result);
-                    break;
-                default:
-                    result = value;
-            }
-            
-            scientificDisplay = String(result);
-            scientificNewNumber = true;
-            updateScientificDisplay();
-        }
-
-        function factorial(n) {
-            if (n < 0) return NaN;
-            if (n === 0 || n === 1) return 1;
-            let result = 1;
-            for (let i = 2; i <= n; i++) {
-                result *= i;
-            }
-            return result;
-        }
-
         // Mode Switching
         document.getElementById('calcTab').onclick = showCalculator;
-        document.getElementById('scientificTab').onclick = showScientific;
         document.getElementById('convTab').onclick = showConverter;
         document.getElementById('historyTab').onclick = showHistory;
 
