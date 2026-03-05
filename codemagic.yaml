@@ -14,7 +14,11 @@ workflows:
       branch_patterns:
         - pattern: 'main'
           include: true
-    scripts:
+        scripts:
+      - name: Initialize Flutter Project
+        script: | 
+          # This creates the missing /android folder on the fly
+          flutter create . --platforms android --project-name zx_calculator
       - name: Set up local.properties
         script: | 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
@@ -23,14 +27,13 @@ workflows:
           flutter packages pub get
       - name: Build Android APK
         script: | 
-          # This creates a "Fat APK" containing all architectures
           flutter build apk --release --no-shrink
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
     publishing:
       email:
         recipients:
-          - your-email@example.com # CHANGE THIS to your email
+          - zsdev07@gmail.com # Change this to your email if your building too, by ZSDEV
         notify:
           success: true
           failure: true
