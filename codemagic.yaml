@@ -1,27 +1,20 @@
-# Codemagic Configuration for ZX Calculator
 workflows:
   android-release:
     name: Android Release APK Build
     max_build_duration: 60
-    instance_type: mac_mini_m2 # High performance build machine
+    instance_type: mac_mini_m2
     environment:
       flutter: stable
-      groups:
-        - google_play # Only needed if you add your keystore later for Play Store
     triggering:
       events:
         - push
       branch_patterns:
         - pattern: 'main'
           include: true
-        scripts:
+    scripts:
       - name: Initialize Flutter Project
         script: | 
-          # This creates the missing /android folder on the fly
           flutter create . --platforms android --project-name zx_calculator
-      - name: Set up local.properties
-        script: | 
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
       - name: Get Flutter packages
         script: | 
           flutter packages pub get
@@ -33,7 +26,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - zsdev07@gmail.com # Change this to your email if your building too, by ZSDEV
+          - zsdev07@gmail.com
         notify:
           success: true
           failure: true
