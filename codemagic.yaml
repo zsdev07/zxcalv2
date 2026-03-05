@@ -1,0 +1,36 @@
+# Codemagic Configuration for ZX Calculator
+workflows:
+  android-release:
+    name: Android Release APK Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2 # High performance build machine
+    environment:
+      flutter: stable
+      groups:
+        - google_play # Only needed if you add your keystore later for Play Store
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+    scripts:
+      - name: Set up local.properties
+        script: | 
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Get Flutter packages
+        script: | 
+          flutter packages pub get
+      - name: Build Android APK
+        script: | 
+          # This creates a "Fat APK" containing all architectures
+          flutter build apk --release --no-shrink
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com # CHANGE THIS to your email
+        notify:
+          success: true
+          failure: true
