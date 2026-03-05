@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator & Converter App</title>
+    <style>
+        /** Tailwind CSS - Embedded for offline use **/
+        *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::before,::after{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal}body{margin:0;line-height:inherit}
+        .min-h-screen{min-height:100vh}.flex{display:flex}.grid{display:grid}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.text-ellipsis{text-overflow:ellipsis}.whitespace-nowrap{white-space:nowrap}.rounded-xl{border-radius:0.75rem}.rounded-lg{border-radius:0.5rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.border{border-width:1px}.bg-black\/40{background-color:rgb(0 0 0 / 0.4)}.bg-black\/30{background-color:rgb(0 0 0 / 0.3)}.bg-purple-600{background-color:#9333ea}.bg-slate-800\/50{background-color:rgb(30 41 59 / 0.5)}.bg-slate-800\/80{background-color:rgb(30 41 59 / 0.8)}.bg-slate-700\/80{background-color:rgb(51 65 85 / 0.8)}.bg-red-500\/80{background-color:rgb(239 68 68 / 0.8)}.bg-purple-600\/80{background-color:rgb(147 51 234 / 0.8)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-slate-900{--tw-gradient-from:#0f172a;--tw-gradient-to:rgb(15 23 42 / 0);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-purple-600{--tw-gradient-from:#9333ea;--tw-gradient-to:rgb(147 51 234 / 0);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-purple-400\/20{--tw-gradient-from:rgb(192 132 252 / 0.2);--tw-gradient-to:rgb(192 132 252 / 0);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-purple-900{--tw-gradient-to:rgb(88 28 135 / 0);--tw-gradient-stops:var(--tw-gradient-from),#581c87,var(--tw-gradient-to)}.to-slate-900{--tw-gradient-to:#0f172a}.to-pink-600{--tw-gradient-to:#db2777}.to-transparent{--tw-gradient-to:transparent}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-2{padding-bottom:0.5rem}.text-right{text-align:right}.font-sans{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-5xl{font-size:3rem;line-height:1}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-light{font-weight:300}.font-medium{font-weight:500}.font-semibold{font-weight:600}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-purple-400{color:#c084fc}.text-purple-400\/60{color:rgb(192 132 252 / 0.6)}.text-slate-400{color:#94a3b8}.text-white{color:#fff}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.backdrop-blur-xl{--tw-backdrop-blur:blur(24px);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4,0,0.2,1);transition-duration:150ms}.hover\:bg-purple-600:hover{background-color:#9333ea}.hover\:bg-slate-800:hover{background-color:#1e293b}.hover\:bg-slate-700:hover{background-color:#334155}.hover\:bg-red-500:hover{background-color:#ef4444}.hover\:from-purple-500:hover{--tw-gradient-from:#a855f7;--tw-gradient-to:rgb(168 85 247 / 0);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.hover\:to-pink-500:hover{--tw-gradient-to:#ec4899}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.h-16{height:4rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-px{height:1px}.w-6{width:1.5rem}.w-full{width:100%}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.mb-1{margin-bottom:0.25rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mx-3{margin-left:0.75rem;margin-right:0.75rem}
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        select {
+            background-color: transparent;
+            color: #c084fc;
+        }
+        select option {
+            background-color: #1e293b;
+            color: white;
+        }
+        input[type="number"] {
+            background-color: transparent;
+            color: white;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+        <div class="bg-black/40 backdrop-blur-xl p-6 rounded-3xl shadow-2xl border border-white/10 w-full max-w-md">
+            
+            <!-- ZX Branding -->
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-purple-400/60 font-bold text-sm tracking-wider">ZX</div>
+                <div class="h-px flex-1 mx-3 bg-gradient-to-r from-purple-400/20 to-transparent"></div>
+            </div>
+            
+            <!-- Mode Tabs -->
+            <div class="flex gap-2 mb-6">
+                <button id="calcTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white">
+                    Calculator
+                </button>
+                <button id="convTab" class="flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
+                    Converter
+                </button>
+                <button id="historyTab" class="py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Calculator Mode -->
+            <div id="calculatorMode">
+                <div class="mb-6 p-6 bg-black/30 rounded-2xl border border-white/5">
+                    <div class="text-right">
+                        <div id="operation" class="text-purple-400 text-sm mb-1 h-5"></div>
+                        <div id="display" class="text-white text-5xl font-light tracking-tight overflow-hidden text-ellipsis">0</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3">
+                    <button onclick="clearCalc()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-red-500/80 hover:bg-red-500 text-white">C</button>
+                    <button onclick="backspace()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">⌫</button>
+                    <button onclick="percent()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-700/80 hover:bg-slate-700 text-white">%</button>
+                    <button onclick="setOperation('÷')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">÷</button>
+
+                    <button onclick="appendNumber(7)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">7</button>
+                    <button onclick="appendNumber(8)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">8</button>
+                    <button onclick="appendNumber(9)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">9</button>
+                    <button onclick="setOperation('×')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">×</button>
+
+                    <button onclick="appendNumber(4)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">4</button>
+                    <button onclick="appendNumber(5)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">5</button>
+                    <button onclick="appendNumber(6)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">6</button>
+                    <button onclick="setOperation('-')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">-</button>
+
+                    <button onclick="appendNumber(1)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">1</button>
+                    <button onclick="appendNumber(2)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">2</button>
+                    <button onclick="appendNumber(3)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">3</button>
+                    <button onclick="setOperation('+')" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-purple-600/80 hover:bg-purple-600 text-white">+</button>
+
+                    <button onclick="toggleSign()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">+/-</button>
+                    <button onclick="appendNumber(0)" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">0</button>
+                    <button onclick="appendDecimal()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-slate-800/80 hover:bg-slate-800 text-white">.</button>
+                    <button onclick="calculate()" class="h-16 text-xl font-medium rounded-xl transition-all active:scale-95 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold">=</button>
+                </div>
+            </div>
+
+            <!-- Converter Mode -->
+            <div id="converterMode" style="display: none;">
+                <!-- Converter Type Selection -->
+                <div class="mb-4 flex gap-2 overflow-x-auto pb-2" id="converterTypes"></div>
+
+                <!-- Converter Interface -->
+                <div class="space-y-4">
+                    <!-- From Unit -->
+                    <div class="bg-black/30 rounded-2xl border border-white/5 p-4">
+                        <select id="fromUnit" onchange="updateConversion()" class="w-full bg-transparent text-purple-400 text-sm mb-3 outline-none"></select>
+                        <input type="number" id="inputValue" oninput="updateConversion()" value="1" class="w-full bg-transparent text-white text-3xl outline-none" placeholder="0">
+                    </div>
+
+                    <!-- Swap Button -->
+                    <div class="flex justify-center">
+                        <button onclick="swapUnits()" class="bg-purple-600/80 hover:bg-purple-600 text-white p-3 rounded-full transition-all active:scale-95">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- To Unit -->
+                    <div class="bg-black/30 rounded-2xl border border-white/5 p-4">
+                        <select id="toUnit" onchange="updateConversion()" class="w-full bg-transparent text-purple-400 text-sm mb-3 outline-none"></select>
+                        <div id="outputValue" class="text-white text-3xl">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Mode -->
+            <div id="historyMode" style="display: none;">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-white text-lg font-medium">History</h3>
+                    <button onclick="clearHistory()" class="text-red-400 hover:text-red-300 text-sm font-medium transition-all">
+                        Clear All
+                    </button>
+                </div>
+                
+                <div id="historyList" class="space-y-2 max-h-96 overflow-y-auto">
+                    <!-- History items will be added here -->
+                </div>
+                
+                <div id="emptyHistory" class="text-center py-12">
+                    <svg class="w-16 h-16 mx-auto text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-slate-400 text-sm">No history yet</p>
+                    <p class="text-slate-500 text-xs mt-1">Your calculations will appear here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create click sound using Web Audio API
+        let audioContext;
+        let clickSound;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        function playClickSound() {
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+        }
+
+        // Calculator State
+        let display = '0';
+        let previous = null;
+        let operation = null;
+        let newNumber = true;
+        let history = [];
+
+        // Converter State
+        let currentConverterType = 'area';
+
+        // Conversion Units Data
+        const conversionUnits = {
+            area: {
+                name: 'Area',
+                units: {
+                    'Square Kilometer': 1000000,
+                    'Square Meter': 1,
+                    'Square Mile': 2589988.110336,
+                    'Square Yard': 0.83612736,
+                    'Square Foot': 0.09290304,
+                    'Square Inch': 0.00064516,
+                    'Hectare': 10000,
+                    'Acre': 4046.8564224
+                }
+            },
+            temperature: {
+                name: 'Temperature',
+                units: ['Celsius', 'Fahrenheit', 'Kelvin']
+            },
+            length: {
+                name: 'Length',
+                units: {
+                    'Kilometer': 1000,
+                    'Meter': 1,
+                    'Centimeter': 0.01,
+                    'Millimeter': 0.001,
+                    'Mile': 1609.344,
+                    'Yard': 0.9144,
+                    'Foot': 0.3048,
+                    'Inch': 0.0254
+                }
+            },
+            weight: {
+                name: 'Weight',
+                units: {
+                    'Ton': 1000000,
+                    'Kilogram': 1000,
+                    'Gram': 1,
+                    'Milligram': 0.001,
+                    'Pound': 453.59237,
+                    'Ounce': 28.349523125
+                }
+            },
+            volume: {
+                name: 'Volume',
+                units: {
+                    'Cubic Meter': 1000,
+                    'Liter': 1,
+                    'Milliliter': 0.001,
+                    'Gallon (US)': 3.785411784,
+                    'Quart (US)': 0.946352946,
+                    'Pint (US)': 0.473176473,
+                    'Cup': 0.24,
+                    'Fluid Ounce': 0.0295735296
+                }
+            },
+            data: {
+                name: 'Data',
+                units: {
+                    'Bit': 1,
+                    'Byte': 8,
+                    'Kilobyte': 8000,
+                    'Megabyte': 8000000,
+                    'Gigabyte': 8000000000,
+                    'Terabyte': 8000000000000,
+                    'Petabyte': 8000000000000000
+                }
+            },
+            speed: {
+                name: 'Speed',
+                units: {
+                    'Meter/Second': 1,
+                    'Kilometer/Hour': 0.277778,
+                    'Mile/Hour': 0.44704,
+                    'Foot/Second': 0.3048,
+                    'Knot': 0.514444
+                }
+            },
+            time: {
+                name: 'Time',
+                units: {
+                    'Year': 31536000,
+                    'Month': 2628000,
+                    'Week': 604800,
+                    'Day': 86400,
+                    'Hour': 3600,
+                    'Minute': 60,
+                    'Second': 1,
+                    'Millisecond': 0.001
+                }
+            }
+        };
+
+        // Calculator Functions
+        function updateDisplay() {
+            document.getElementById('display').textContent = display;
+            if (operation && previous !== null) {
+                document.getElementById('operation').textContent = previous + ' ' + operation;
+            } else {
+                document.getElementById('operation').textContent = '';
+            }
+        }
+
+        function appendNumber(num) {
+            playClickSound();
+            if (newNumber) {
+                display = String(num);
+                newNumber = false;
+            } else {
+                display = display === '0' ? String(num) : display + num;
+            }
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            playClickSound();
+            if (newNumber) {
+                display = '0.';
+                newNumber = false;
+            } else if (!display.includes('.')) {
+                display += '.';
+            }
+            updateDisplay();
+        }
+
+        function setOperation(op) {
+            playClickSound();
+            const current = parseFloat(display);
+            
+            if (previous === null) {
+                previous = current;
+            } else if (operation) {
+                const result = performCalculation(previous, current, operation);
+                display = String(result);
+                previous = result;
+            }
+            
+            operation = op;
+            newNumber = true;
+            updateDisplay();
+        }
+
+        function performCalculation(a, b, op) {
+            switch (op) {
+                case '+': return a + b;
+                case '-': return a - b;
+                case '×': return a * b;
+                case '÷': return a / b;
+                default: return b;
+            }
+        }
+
+        function calculate() {
+            playClickSound();
+            if (operation && previous !== null) {
+                const current = parseFloat(display);
+                const result = performCalculation(previous, current, operation);
+                
+                // Add to history
+                addToHistory(previous, operation, current, result);
+                
+                display = String(result);
+                previous = null;
+                operation = null;
+                newNumber = true;
+                updateDisplay();
+            }
+        }
+
+        function clearCalc() {
+            playClickSound();
+            display = '0';
+            previous = null;
+            operation = null;
+            newNumber = true;
+            updateDisplay();
+        }
+
+        function backspace() {
+            playClickSound();
+            if (display.length > 1) {
+                display = display.slice(0, -1);
+            } else {
+                display = '0';
+                newNumber = true;
+            }
+            updateDisplay();
+        }
+
+        function percent() {
+            playClickSound();
+            display = String(parseFloat(display) / 100);
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            playClickSound();
+            display = String(parseFloat(display) * -1);
+            updateDisplay();
+        }
+
+        // History Functions
+        function addToHistory(num1, op, num2, result) {
+            const equation = `${num1} ${op} ${num2}`;
+            const timestamp = new Date().toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            
+            history.unshift({
+                equation: equation,
+                result: result,
+                timestamp: timestamp
+            });
+            
+            // Keep only last 50 calculations
+            if (history.length > 50) {
+                history = history.slice(0, 50);
+            }
+            
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            const emptyHistory = document.getElementById('emptyHistory');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '';
+                emptyHistory.style.display = 'block';
+                return;
+            }
+            
+            emptyHistory.style.display = 'none';
+            
+            historyList.innerHTML = history.map((item, index) => `
+                <div class="bg-black/30 rounded-xl border border-white/5 p-4 cursor-pointer hover:bg-black/40 transition-all" onclick="useHistoryResult(${index})">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-purple-400 text-xs">${item.timestamp}</span>
+                        <button onclick="event.stopPropagation(); deleteHistoryItem(${index})" class="text-slate-500 hover:text-red-400 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-slate-400 text-sm mb-1">${item.equation}</div>
+                    <div class="text-white text-xl font-medium">= ${item.result}</div>
+                </div>
+            `).join('');
+        }
+
+        function useHistoryResult(index) {
+            playClickSound();
+            display = String(history[index].result);
+            newNumber = true;
+            updateDisplay();
+            showCalculator();
+        }
+
+        function deleteHistoryItem(index) {
+            playClickSound();
+            history.splice(index, 1);
+            updateHistoryDisplay();
+        }
+
+        function clearHistory() {
+            playClickSound();
+            if (history.length === 0) return;
+            
+            if (confirm('Clear all history?')) {
+                history = [];
+                updateHistoryDisplay();
+            }
+        }
+
+        function showCalculator() {
+            document.getElementById('calculatorMode').style.display = 'block';
+            document.getElementById('converterMode').style.display = 'none';
+            document.getElementById('historyMode').style.display = 'none';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        }
+
+        function showConverter() {
+            document.getElementById('calculatorMode').style.display = 'none';
+            document.getElementById('converterMode').style.display = 'block';
+            document.getElementById('historyMode').style.display = 'none';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+        }
+
+        function showHistory() {
+            playClickSound();
+            document.getElementById('calculatorMode').style.display = 'none';
+            document.getElementById('converterMode').style.display = 'none';
+            document.getElementById('historyMode').style.display = 'block';
+            document.getElementById('calcTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('convTab').className = 'flex-1 py-3 px-4 rounded-xl font-medium transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            document.getElementById('historyTab').className = 'py-3 px-4 rounded-xl font-medium transition-all bg-purple-600 text-white';
+            updateHistoryDisplay();
+        }
+
+        // Mode Switching
+        document.getElementById('calcTab').onclick = showCalculator;
+        document.getElementById('convTab').onclick = showConverter;
+        document.getElementById('historyTab').onclick = showHistory;
+
+        // Converter Functions
+        function convertTemperature(value, from, to) {
+            let celsius;
+            
+            if (from === 'Celsius') celsius = value;
+            else if (from === 'Fahrenheit') celsius = (value - 32) * 5/9;
+            else if (from === 'Kelvin') celsius = value - 273.15;
+            
+            if (to === 'Celsius') return celsius;
+            else if (to === 'Fahrenheit') return celsius * 9/5 + 32;
+            else if (to === 'Kelvin') return celsius + 273.15;
+        }
+
+        function convertUnits(value, from, to, type) {
+            if (type === 'temperature') {
+                return convertTemperature(value, from, to);
+            }
+            
+            const units = conversionUnits[type].units;
+            const baseValue = value * units[from];
+            return baseValue / units[to];
+        }
+
+        function updateConversion() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            
+            if (!inputValue || !fromUnit || !toUnit || isNaN(inputValue)) {
+                document.getElementById('outputValue').textContent = '0';
+                return;
+            }
+            
+            const result = convertUnits(inputValue, fromUnit, toUnit, currentConverterType);
+            document.getElementById('outputValue').textContent = result.toFixed(6).replace(/\.?0+$/, '');
+        }
+
+        function swapUnits() {
+            playClickSound();
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+            updateConversion();
+        }
+
+        function initConverterType(type) {
+            currentConverterType = type;
+            const units = conversionUnits[type];
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+            
+            if (type === 'temperature') {
+                units.units.forEach(unit => {
+                    fromSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                    toSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                });
+                fromSelect.value = 'Celsius';
+                toSelect.value = 'Fahrenheit';
+            } else {
+                const unitNames = Object.keys(units.units);
+                unitNames.forEach(unit => {
+                    fromSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                    toSelect.innerHTML += `<option value="${unit}">${unit}</option>`;
+                });
+                fromSelect.value = unitNames[0];
+                toSelect.value = unitNames[1];
+            }
+            
+            document.getElementById('inputValue').value = '1';
+            updateConversion();
+        }
+
+        // Initialize Converter Types
+        const typesContainer = document.getElementById('converterTypes');
+        Object.keys(conversionUnits).forEach(type => {
+            const button = document.createElement('button');
+            button.textContent = conversionUnits[type].name;
+            button.className = type === 'area' 
+                ? 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-purple-600 text-white'
+                : 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+            button.onclick = function() {
+                playClickSound();
+                document.querySelectorAll('#converterTypes button').forEach(btn => {
+                    btn.className = 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-slate-800/50 text-slate-400 hover:bg-slate-800';
+                });
+                this.className = 'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all bg-purple-600 text-white';
+                initConverterType(type);
+            };
+            typesContainer.appendChild(button);
+        });
+
+        // Initialize
+        initConverterType('area');
+    </script>
+</body>
+    </html>
