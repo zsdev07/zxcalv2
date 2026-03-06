@@ -12,7 +12,7 @@ jobs:
       contents: write # Allows the action to push changes back
     steps:
       - name: Checkout repository
-        uses: [actions/checkout@v4]
+        uses: actions/checkout@v4
 
       - name: Extract zip file
         run: |
