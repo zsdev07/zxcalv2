@@ -26,6 +26,11 @@ jobs:
           flutter-version: '3.19.0' # Matches modern WebView requirements
           channel: 'stable'
 
+      - name: Re-create Android files
+        run: |
+          rm -rf android
+          flutter create . --platforms android --project-name zx_calculator
+
       - name: Get dependencies
         run: flutter pub get
 
